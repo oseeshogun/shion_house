@@ -9,6 +9,7 @@ pyparsing = "*"
 pydot = "*"
 django = "*"
 pillow = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
