@@ -6,3 +6,6 @@ def shop(request):
 
 def search(request):
     return render(request, 'shop/index.html')
+
+def product(request):
+    return render(request, 'shop/index.html')

@@ -133,7 +133,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR 
+
 GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+
