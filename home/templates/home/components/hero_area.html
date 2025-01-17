@@ -1,0 +1,78 @@
+{% load static %}
+<!--? Hero Area Start-->
+<div class="container-fluid">
+  <div class="slider-area">
+    <!-- Mobile Device Show Menu-->
+    <div class="header-right2 d-flex align-items-center">
+      <!-- Search Box -->
+      <div class="search d-block d-md-none">
+        <ul class="d-flex align-items-center">
+          <li class="mr-15">
+            <div class="nav-search search-switch">
+              <i class="ti-search"></i>
+            </div>
+          </li>
+          <li>
+            <div class="card-stor">
+              <img src="{% static 'assets/img/gallery/card.svg' %}" alt="" />
+              <span>0</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- /End mobile  Menu-->
+
+    <div class="slider-active dot-style">
+      <!-- Single -->
+      <div
+        class="single-slider slider-bg1 hero-overly slider-height d-flex align-items-center"
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-9">
+              <!-- Hero Caption -->
+              <div class="hero__caption">
+                <h1>Le style<br />change<br />toujours</h1>
+                <a href="{% url 'shop:index' %}" class="btn">Achetez maintenant</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Single -->
+      <div
+        class="single-slider slider-bg2 hero-overly slider-height d-flex align-items-center"
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-9">
+              <!-- Hero Caption -->
+              <div class="hero__caption">
+                <h1>Le style<br />change<br />toujours</h1>
+                <a href="{% url 'shop:index' %}" class="btn">Achetez maintenant</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Single -->
+      <div
+        class="single-slider slider-bg3 hero-overly slider-height d-flex align-items-center"
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-9">
+              <!-- Hero Caption -->
+              <div class="hero__caption">
+                <h1>Le style<br />change<br />toujours</h1>
+                <a href="{% url 'shop:index' %}" class="btn">Achetez maintenant</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Hero -->

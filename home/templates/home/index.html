@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>SHION HOUSE</title>
+    <meta name="description" content="Meilleur site de vente de la RDC" />
+
+    {% include "home/styles/base.html" %}
+  </head>
+  <body class="full-wrapper">
+    {% include "home/components/preloader.html" %}
+
+    {% include "home/components/header.html" %}
+
+    <main>
+        {% include "home/components/hero_area.html" %}
+        {% include "home/components/popular_items.html" %}
+        {% include "home/components/new_arrivals.html" %}
+        {% include "home/components/collection.html" %}
+        {% include "home/components/services_area.html" %}
+    </main>
+
+    {% include "home/components/footer.html" %}
+
+    {% include "home/scripts/base.html" %}
+  </body>
+</html>
