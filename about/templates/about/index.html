@@ -11,7 +11,16 @@
   <body class="full-wrapper">
     {% include "home/components/preloader.html" %}
 
-   
+    {% include "home/components/header.html" %}
+    
+    <main>
+        {% include "about/components/breadcrumb.html" %}
+        {% include "about/components/about_area.html" %}
+        {% include "home/components/popular_items.html" %}
+        {% include "home/components/services_area.html" %}
+    </main>
+    
+    {% include "home/components/footer.html" %}
 
     {% include "home/scripts/base.html" %}
   </body>
