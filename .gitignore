@@ -1,1 +1,15 @@
 db.sqlite3
+
+.DS_Store
+**/.DS_Store
+
+# Django
+django_extensions
+
+# Node
+node_modules
+
+**/*.pyc
+
+static/assets/.DS_Store
+static/assets/img/.DS_Store
