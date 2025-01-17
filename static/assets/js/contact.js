@@ -6,7 +6,7 @@ $(document).ready(function(){
     
     jQuery.validator.addMethod('answercheck', function (value, element) {
         return this.optional(element) || /^\bcat\b$/.test(value)
-    }, "type the correct answer -_-");
+    }, "Veuillez entrer la bonne réponse");
 
     // validate contactForm form
     $(function() {
@@ -35,30 +35,31 @@ $(document).ready(function(){
             },
             messages: {
                 name: {
-                    required: "come on, you have a name, don't you?",
-                    minlength: "your name must consist of at least 2 characters"
+                    required: "Veuillez entrer votre nom",
+                    minlength: "Votre nom doit contenir au moins 2 caractères"
                 },
                 subject: {
-                    required: "come on, you have a subject, don't you?",
-                    minlength: "your subject must consist of at least 4 characters"
+                    required: "Veuillez entrer un sujet",
+                    minlength: "Le sujet doit contenir au moins 4 caractères"
                 },
                 number: {
-                    required: "come on, you have a number, don't you?",
-                    minlength: "your Number must consist of at least 5 characters"
+                    required: "Veuillez entrer votre numéro",
+                    minlength: "Votre numéro doit contenir au moins 5 caractères"
                 },
                 email: {
-                    required: "no email, no message"
+                    required: "L'adresse email est requise",
+                    email: "Veuillez entrer une adresse email valide"
                 },
                 message: {
-                    required: "um...yea, you have to write something to send this form.",
-                    minlength: "thats all? really?"
+                    required: "Veuillez entrer votre message",
+                    minlength: "Votre message doit contenir au moins 20 caractères"
                 }
             },
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
                     type:"POST",
                     data: $(form).serialize(),
-                    url:"contact_process.php",
+                    url: "/contact/message",
                     success: function() {
                         $('#contactForm :input').attr('disabled', 'disabled');
                         $('#contactForm').fadeTo( "slow", 1, function() {
