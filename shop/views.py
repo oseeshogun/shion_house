@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from django.utils import timezone
+from datetime import timedelta
 
 from cart.models import UserCart
 from shop.models import Category, Product
@@ -93,5 +94,20 @@ def search(request):
     return render(request, 'shop/index.html', context=context)
 
 
-def product(request):
-    return render(request, 'shop/index.html')
+def product(request, pk):
+    cart_count = UserCart.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
+    product = get_object_or_404(Product, pk=pk)
+    
+    one_month_ago = timezone.now() - timedelta(days=30)
+    
+    popular_items = Product.objects.annotate(
+        vote_count=Count('popularityvote',
+                         filter=Q(popularityvote__created_at__gte=one_month_ago))
+    ).order_by('-vote_count')[:4]
+    
+    context = {
+        'cart_count': cart_count,
+        'product': product,
+        'popular_items': popular_items
+    }
+    return render(request, 'shop/product.html', context=context)
