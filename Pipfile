@@ -8,8 +8,12 @@ django-extensions = "*"
 pyparsing = "*"
 pydot = "*"
 django = "*"
-pillow = "*"
 djangorestframework = "*"
+django-meta = "*"
+django-robots = "*"
+pillow = "*"
+django-imagekit = "*"
+django-seo-js = "*"
 
 [dev-packages]
 

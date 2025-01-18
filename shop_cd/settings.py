@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # Required for django-meta
     'django_extensions',
     'rest_framework',
+    'meta',
+    'robots',
+    'imagekit',
+    'seo',
     'home',
     'shop',
     'about',
@@ -112,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 
@@ -137,8 +142,26 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR 
+# SEO Settings
+SITE_ID = 1
+
+META_SITE_PROTOCOL = 'https'  # or 'http'
+META_SITE_DOMAIN = 'yourdomain.com'  # Replace with your domain
+META_USE_OG_PROPERTIES = True
+META_USE_TWITTER_PROPERTIES = True
+META_USE_TITLE_TAG = True
+
+# Robots.txt settings
+ROBOTS_USE_HOST = True
+ROBOTS_USE_SITEMAP = True
+
+# Image optimization settings
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+IMAGEKIT_CACHEFILE_DIR = 'CACHE/images'
+
+# Media settings for handling images
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 GRAPH_MODELS = {
   'all_applications': True,
@@ -152,5 +175,3 @@ LOGOUT_REDIRECT_URL = 'home:index'
 
 # Email settings (for development)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-LANGUAGE_CODE = 'fr-FR'
