@@ -303,15 +303,18 @@
   // Add to cart
   $(".favorit-items").on("click", function () {
     const id = $(this).data("id");
+    const crf_token = $('[name="csrfmiddlewaretoken"]').attr("value");
     if (id) {
       $.ajax({
         type: "POST",
         url: "/cart/add/",
+        headers: { "X-CSRFToken": crf_token },
         data: { product_id: parseInt(id), quantity: 1 },
         success: function (data) {
           console.log(data);
         },
       });
+      $("#cart_counter").html(parseInt($("#cart_counter").html()) + 1);
     }
   });
 })(jQuery);

@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'shop',
     'about',
     'contact',
-    'cart'
+    'cart',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,12 @@ GRAPH_MODELS = {
   'group_models': True,
 }
 
+# Authentication settings
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+# Email settings (for development)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LANGUAGE_CODE = 'fr-FR'

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -25,7 +26,6 @@ class Product(models.Model):
         MinValueValidator(1)
     ])
     description = models.TextField()
-    popularity = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -34,7 +34,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['popularity']
+        ordering = ['-created_at']
         
     @property
     def images(self):
@@ -43,6 +43,10 @@ class Product(models.Model):
     @property
     def rating_range(self):
         return range(self.rate)
+    
+    @property
+    def popularity(self):
+        return PopularityVote.objects.filter(product=self).count()
 
 
 class MoreProductImage(models.Model):
@@ -51,3 +55,16 @@ class MoreProductImage(models.Model):
 
     def __str__(self):
         return f'Image for {self.product.name}'
+
+class PopularityVote(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    count = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ['product', 'user']
+    
+    def __str__(self):
+        return f'Vote for {self.product.name} by {self.user.username}'

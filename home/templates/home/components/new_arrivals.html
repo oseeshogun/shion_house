@@ -24,7 +24,13 @@
           data-wow-delay=".1s"
         >
           <div class="popular-img">
-            <img src="{{ item.image.url }}" style="object-fit: cover" height="300px" alt="" />
+            <img
+              src="{{ item.image.url }}"
+              style="object-fit: cover"
+              height="300px"
+              alt=""
+            />
+            {% if request.user.is_authenticated %}
             <div class="favorit-items" data-id="{{ item.id }}">
               <!-- <span class="flaticon-heart"></span> -->
               <img
@@ -32,10 +38,21 @@
                 alt=""
               />
             </div>
+            {% else %}
+            <a class="favorit-items" href="{% url 'accounts:login' %}">
+              <!-- <span class="flaticon-heart"></span> -->
+              <img
+                src="{% static 'assets/img/gallery/favorit-card.png' %}"
+                alt=""
+              />
+            </a>
+            {% endif %}
           </div>
           <div class="popular-caption">
             <h3>
-              <a href="{% url 'shop:product' pk=item.id %}">{{ item.name|truncatechars:20 }}</a>
+              <a href="{% url 'shop:product' pk=item.id %}"
+                >{{ item.name|truncatechars:20 }}</a
+              >
             </h3>
             <div class="rating mb-10">
               {% for i in item.rating_range %}
@@ -56,4 +73,5 @@
     </div>
   </div>
 </div>
+{% csrf_token %}
 <!--? New Arrival End -->
