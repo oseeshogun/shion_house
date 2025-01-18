@@ -7,7 +7,7 @@
       <div class="col-xl-7 col-lg-8 col-md-10">
         <div class="section-tittle mb-50">
           <h2>Achetez avec nous</h2>
-          <p>Parcourez nos 230 derniers articles</p>
+          <p>Parcourez nos {{ product_count }} derniers articles</p>
         </div>
       </div>
     </div>
@@ -20,62 +20,32 @@
           <div class="single-listing">
             <!-- Select City items start -->
             <div class="select-job-items2">
-              <select name="select2">
-                <option value="">Catégorie</option>
-                <option value="">Chemise</option>
-                <option value="">T-shirt</option>
-                <option value="">Pantalon</option>
-                <option value="">Robe</option>
+              <select name="select2" onchange="window.location.href = this.value;">
+                {% for category in categories %}
+                  <option value="{{ request.path }}?category={{ category.id }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ category }}</option>
+                {% endfor %}
               </select>
             </div>
-            <!--  Select City items End-->
-            <!-- Select State items start -->
-            <div class="select-job-items2">
-              <select name="select3">
-                <option value="">Type</option>
-                <option value="">P</option>
-                <option value="">M</option>
-                <option value="">G</option>
-                <option value="">TG</option>
-              </select>
-            </div>
-            <!--  Select State items End-->
+          
+           
             <!-- Select km items start -->
             <div class="select-job-items2">
-              <select name="select4">
-                <option value="">Taille</option>
-                <option value="">36.5cm</option>
-                <option value="">76.2cm</option>
-                <option value="">158.5cm</option>
-                <option value="">97.5cm</option>
-              </select>
-            </div>
-            <!--  Select km items End-->
-            <!-- Select km items start -->
-            <div class="select-job-items2">
-              <select name="select5">
-                <option value="">Couleur</option>
-                <option value="">Blanc</option>
-                <option value="">Vert</option>
-                <option value="">Bleu</option>
-                <option value="">Bleu ciel</option>
-                <option value="">Gris</option>
-              </select>
-            </div>
-            <!--  Select km items End-->
-            <!-- Select km items start -->
-            <div class="select-job-items2">
-              <select name="select6">
+              <select name="select6" onchange="window.location.href = this.value;">
                 <option value="">Gamme de prix</option>
-                <option value="">10€ à 20€</option>
-                <option value="">20€ à 30€</option>
-                <option value="">50€ à 80€</option>
-                <option value="">100€ à 120€</option>
-                <option value="">200€ à 300€</option>
-                <option value="">500€ à 600€</option>
+                <option value="{{ request.path }}?price=10000,20000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">10000 CDF à 20000 CDF</option>
+                <option value="{{ request.path }}?price=20000,50000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">20000 CDF à 50000 CDF</option>
+                <option value="{{ request.path }}?price=50000,100000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">50000 CDF à 100000 CDF</option>
+                <option value="{{ request.path }}?price=100000,200000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">100000 CDF à 200000 CDF</option>
+                <option value="{{ request.path }}?price=200000,300000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">200000 CDF à 300000 CDF</option>
+                <option value="{{ request.path }}?price=300000,400000{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">300000 CDF à 400000 CDF</option>
               </select>
             </div>
             <!--  Select km items End-->
+            {% if request.GET.query or request.GET.price or request.GET.category %}
+            <div>
+              <a href="{% url 'shop:index' %}" class="link-opacity-100 link-underline-primary text-primary">Reinitialiser</a>
+            </div>
+            {% endif %}
           </div>
         </div>
         <!-- Job Category Listing End -->
@@ -85,204 +55,43 @@
         <!--? New Arrival Start -->
         <div class="new-arrival new-arrival2">
           <div class="row">
+            {% for product in products %}
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
               <div class="single-new-arrival mb-50 text-center">
                 <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival2.png' %}" alt="" />
-                  <div class="favorit-items">
+                  <img src="{{ product.image.url }}" height="360px" style="object-fit: cover" alt="" />
+                  {% if request.user.is_authenticated %}
+                  <div class="favorit-items" data-id="{{ item.id }}">
                     <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
+                    <img
+                      src="{% static 'assets/img/gallery/favorit-card.png' %}"
+                      alt=""
+                    />
                   </div>
+                  {% else %}
+                  <a class="favorit-items" href="{% url 'accounts:login' %}">
+                    <!-- <span class="flaticon-heart"></span> -->
+                    <img
+                      src="{% static 'assets/img/gallery/favorit-card.png' %}"
+                      alt=""
+                    />
+                  </a>
+                  {% endif %}
                 </div>
                 <div class="popular-caption">
                   <h3>
-                    <a href="product_details.html">Pull en maille</a>
+                    <a href="{% url 'shop:product' pk=product.id %}">{{ product.name }}</a>
                   </h3>
                   <div class="rating mb-10">
+                    {% for i in product.rating_range %}
                     <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                    {% endfor %}
                   </div>
-                  <span>30.00€</span>
+                  <span>{{ product.price }} CDF</span>
                 </div>
               </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival3.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival4.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival5.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival6.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival7.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival8.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="single-new-arrival mb-50 text-center">
-                <div class="popular-img">
-                  <img src="{% static 'assets/img/gallery/arrival1.png' %}" alt="" />
-                  <div class="favorit-items">
-                    <!-- <span class="flaticon-heart"></span> -->
-                    <img src="{% static 'assets/img/gallery/favorit-card.png' %}" alt="" />
-                  </div>
-                </div>
-                <div class="popular-caption">
-                  <h3>
-                    <a href="product_details.html">Pull en maille</a>
-                  </h3>
-                  <div class="rating mb-10">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span>30.00€</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Button -->
-          <div class="row justify-content-center">
-            <div class="room-btn mt-20">
-              <a href="catagori.html" class="border-btn">Voir plus</a>
-            </div>
+            {% endfor %}
           </div>
         </div>
         <!--? New Arrival End -->

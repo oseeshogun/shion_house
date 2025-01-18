@@ -14,7 +14,7 @@ def index(request):
                          filter=Q(popularityvote__created_at__gte=one_month_ago))
     ).order_by('-vote_count')[:4]
     arrivals = Product.objects.order_by('-created_at')[:8]
-    cart_count = UserCart.objects.filter(user=request.user).count()
+    cart_count = UserCart.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
     context = {
         'popular_items': popular_items,
         'arrivals': arrivals,
