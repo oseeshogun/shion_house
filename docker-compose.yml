@@ -11,5 +11,5 @@ services:
     environment:
       - DEBUG=1
       - DJANGO_SETTINGS_MODULE=shop_cd.settings
-      - MEDIA_ROOT=/app/media
+      - MEDIA_ROOT=/app/
     restart: unless-stopped
