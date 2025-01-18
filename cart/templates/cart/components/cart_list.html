@@ -1,0 +1,124 @@
+{% load static %}
+<style>
+  .cart-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  .cart-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .cart-img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .cart-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cart-product-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  .cart-quantity {
+    color: #666;
+    font-size: 16px;
+  }
+  .whatsapp-btn {
+    background-color: #25d366;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  .whatsapp-btn:hover {
+    background-color: #128c7e;
+    color: white;
+  }
+  .cart-section {
+    padding: 60px 0;
+  }
+</style>
+
+<!-- Cart Area -->
+<section class="cart-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center mb-5">Mon Panier</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for item in cart_items %}
+      <div class="col-md-6 col-lg-4 relative">
+        <a
+          href="{% url 'cart:remove_from_cart' item.product.id %}"
+          style="
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+          "
+        >
+          <i class="fas fa-times"></i>
+        </a>
+        <div class="cart-card">
+          <div class="cart-img-container">
+            {% if item.product.image %}
+            <img
+              src="{{ item.product.image.url }}"
+              alt="{{ item.product.name }}"
+            />
+            {% else %}
+            <img
+              src="{% static 'img/placeholder.jpg' %}"
+              alt="Product placeholder"
+            />
+            {% endif %}
+          </div>
+          <div class="cart-product-details">
+            <h3 class="cart-product-name">{{ item.product.name }}</h3>
+            <p class="cart-quantity">Quantité: {{ item.quantity }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="price">{{ item.product.price }} CDF</span>
+              <a
+                href="https://api.whatsapp.com/send/?phone=+243894490324&text=Je suis intéressé par {{ item.product.name }} sur SHION HOUSE, je voudrais en acheter {{ item.quantity }} unité(s)."
+                class="whatsapp-btn"
+                target="_blank"
+              >
+                <i class="fab fa-whatsapp"></i>
+                Commander
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p>Votre panier est vide</p>
+        <a href="{% url 'home:index' %}" class="btn btn-primary mt-3"
+          >Continuer vos achats</a
+        >
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

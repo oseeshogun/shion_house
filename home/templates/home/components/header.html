@@ -37,13 +37,13 @@
                   </div>
                 </li>
                 <li>
-                  <div class="card-stor">
+                  <a class="card-stor" href="{% url 'cart:index' %}">
                     <img
                       src="{% static 'assets/img/gallery/card.svg' %}"
                       alt=""
                     />
                     <span id="cart_counter">{{ cart_count }}</span>
-                  </div>
+                  </a>
                 </li>
               </ul>
             </div>

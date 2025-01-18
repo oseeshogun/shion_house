@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
@@ -7,6 +7,25 @@ from rest_framework.permissions import IsAuthenticated
 from shop.models import PopularityVote, Product
 from .serializers import AddToCartSerializer
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from .models import UserCart
+
+def cart(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
+    cart_count = UserCart.objects.filter(user=request.user).count()
+    cart_items = UserCart.objects.filter(user=request.user).select_related('product')
+    context = {
+        'cart_items': cart_items,
+        'cart_count': cart_count
+    }
+    return render(request, 'cart/index.html', context)
+
+def delete_cart_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
+    cart_item = get_object_or_404(UserCart, id=item_id, user=request.user)
+    cart_item.delete()
+    return redirect('cart:index')
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
