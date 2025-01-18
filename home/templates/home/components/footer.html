@@ -10,17 +10,19 @@
             <div class="single-footer-caption mb-30">
               <!-- logo -->
               <div class="footer-logo mb-35">
-                <a href="index.html"
-                  ><img
+                <a href="{% url 'home:index' %}">
+                  <img
                     src="{% static 'assets/img/logo/logo2_footer.png' %}"
-                    alt=""
-                /></a>
+                    alt="Shop CD Logo"
+                  />
+                </a>
               </div>
               <div class="footer-tittle">
                 <div class="footer-pera">
                   <p>
-                    Suspendisse varius enim in eros elementum tristique. Duis
-                    cursus, mi quis viverra ornare, eros dolor interdum nulla.
+                    Your trusted destination for high-quality products. We offer
+                    a curated selection of items with fast shipping and
+                    excellent customer service.
                   </p>
                 </div>
               </div>
@@ -30,11 +32,11 @@
         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
           <div class="single-footer-caption mb-50">
             <div class="footer-tittle">
-              <h4>Quick links</h4>
+              <h4>Quick Links</h4>
               <ul>
-                <li><a href="#">Image Licensin</a></li>
-                <li><a href="#">Style Guide</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="{% url 'home:index' %}">Accueil</a></li>
+                <li><a href="{% url 'shop:index' %}">Boutique</a></li>
+                <li><a href="{% url 'cart:index' %}">Panier</a></li>
               </ul>
             </div>
           </div>
@@ -42,11 +44,10 @@
         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
           <div class="single-footer-caption mb-50">
             <div class="footer-tittle">
-              <h4>Shop Category</h4>
+              <h4>Service Client</h4>
               <ul>
-                <li><a href="#">Image Licensin</a></li>
-                <li><a href="#">Style Guide</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="{% url 'about:index' %}#about">A propos</a></li>
+                <li><a href="{% url 'contact:index' %}#contact">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -54,45 +55,21 @@
         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
           <div class="single-footer-caption mb-50">
             <div class="footer-tittle">
-              <h4>Pertners</h4>
+              <h4>Contactez-nous</h4>
               <ul>
-                <li><a href="#">Image Licensin</a></li>
-                <li><a href="#">Style Guide</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-map-marker-alt"></i> 123 Business Street,
+                  City
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+1234567890"><i class="fas fa-phone"></i> +1 234 567 8900 </a>
+                </li>
+                <li>
+                  <a href="mailto:contact@shop.cd"><i class="fas fa-envelope"></i> contact@shop.cd </a>
+                </li>
               </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4">
-          <div class="single-footer-caption mb-50">
-            <div class="footer-tittle">
-              <h4>Get in touch</h4>
-              <ul>
-                <li><a href="#">(89) 982-278 356</a></li>
-                <li><a href="#">demo@colorlib.com</a></li>
-                <li><a href="#">67/A, Colorlib, Green road, NYC</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- footer-bottom area -->
-  <div class="footer-bottom-area">
-    <div class="container">
-      <div class="footer-border">
-        <div class="row d-flex align-items-center">
-          <div class="col-xl-12">
-            <div class="footer-copy-right text-center">
-              <p>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                All rights reserved | Shion 
-              </p>
             </div>
           </div>
         </div>
@@ -100,4 +77,24 @@
     </div>
   </div>
   <!-- Footer End-->
+  <!-- Copyright -->
+  <div class="footer-bottom-area">
+    <div class="container">
+      <div class="footer-border">
+        <div class="row d-flex align-items-center">
+          <div class="col-xl-12">
+            <div class="footer-copy-right text-center">
+              <p>
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                Shop CD. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
