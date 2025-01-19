@@ -12,3 +12,6 @@ class UserCart(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.product.name}"
+
+    class Meta:
+        unique_together = ['user', 'product']
