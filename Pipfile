@@ -14,6 +14,7 @@ django-robots = "*"
 pillow = "*"
 django-imagekit = "*"
 django-seo-js = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
 
 [dev-packages]
 
