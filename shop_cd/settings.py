@@ -162,7 +162,7 @@ IMAGEKIT_CACHEFILE_DIR = 'CACHE/images'
 
 # Media settings for handling images
 MEDIA_URL = '/media/'
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'mediafiles') # os.environ.get('MEDIA_ROOT', BASE_DIR / 'mediafiles')
+MEDIA_ROOT =  os.path.join(BASE_DIR) # os.environ.get('MEDIA_ROOT', BASE_DIR / 'mediafiles')
 
 GRAPH_MODELS = {
     'all_applications': True,
